@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2&family=Roboto:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bitter:ital,wght@0,100..900;1,100..900&family=Holtwood+One+SC&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Protest+Strike&display=swap');
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  .protest-strike-regular {
+  font-family: "Protest Strike", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+}
+body,html{
+  width: 100%;
+  height: 100%;
+  background: #d8d3d39c;
+}
+#big-font{
+    color: #0D6EFD;
+    font-family: "Protest Strike", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+#cityName{
+    color: rgb(15, 10, 113);
+}
+#card-head , #card-head-2 ,#card-head-3{
+    background:#0D6EFD;
+    color: white;
+    font-family: "Protest Strike", sans-serif;
+}
+#cp , #hypl , #hypl-1 , #submit , #c1{
+    font-family: "Protest Strike", sans-serif;
+}
+
+#c1 ,  #c2 , #c3{
+    font-family: "Bitter", serif;
+}
+
+.navbar{
+    background: skyblue;
+    
+}
+.navbar-brand{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: rgb(12, 12, 106);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+.nav-link{
+  font-size: 1.1rem;
+}
+.d-flex{
+  width: 50%;
+}
+.form-control{
+  cursor: pointer;
+}
+.text-center{
+  color: rgb(0, 0, 0);
+}
+.btn{
+  background: #0D6EFD;
+  color: whitesmoke;
+  padding: 5px 20px;
+}
+.blk-1 , .blk-2 , .blk-3{
+  mix-blend-mode: multiply;
+  width: 80px;
+}
+
+@media (width <= 550px) {
+    #gf{
+        display: flex;
+        flex-direction: column;
+        gap: 1vh;
+    }
+    #city{
+        width: 350px;
+    }
+    .gff{
+        width: 90px;
+    }
+}
+@media (width <= 422px) {
+    #gf{
+        display: flex;
+        flex-direction: column;
+        gap: 1vh;
+    }
+    #city{
+        width: 300px;
+    }
+    .gff{
+        width: 90px;
+    }
+}
+@media (width <= 322px) {
+    #gf{
+        display: flex;
+        flex-direction: column;
+        gap: 1vh;
+    }
+    #city{
+        width: 220px;
+    }
+    .gff{
+        width: 90px;
+    }
+}
+@media (width <= 247px) {
+    #gf{
+        display: flex;
+        flex-direction: column;
+        gap: 1vh;
+    }
+    #city{
+        width: 180px;
+    }
+    .gff{
+        width: 90px;
+    }
+}
+@media (width <= 999px){
+    #cbb{
+        height: 310px;
+    }
+}
+
