@@ -5,123 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Weather App</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2&family=Roboto:wght@300;400&display=swap');
-      *{
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-        font-family: 'Roboto', sans-serif;
-        font-family: 'Baloo Bhai 2', sans-serif;
-      }
-      body,html{
-        width: 100%;
-        height: 100%;
-        background: #d8d3d39c;
-      }
-        .navbar{
-            background: skyblue;
-            
-        }
-        .navbar-brand{
-          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-          color: rgb(12, 12, 106);
-          font-weight: 900;
-          text-transform: uppercase;
-        }
-        .nav-link{
-          font-size: 1.1rem;
-        }
-        .d-flex{
-          width: 50%;
-        }
-        .form-control{
-          cursor: pointer;
-        }
-        .text-center{
-          color: rgb(0, 0, 0);
-        }
-        .btn{
-          background: #0D6EFD;
-          color: whitesmoke;
-          padding: 5px 20px;
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bitter:ital,wght@0,100..900;1,100..900&family=Holtwood+One+SC&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Protest+Strike&display=swap" rel="stylesheet">
   </head>
   <body>
     <nav class="navbar navbar-expand-lg ">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Weather App</a>
+          <a class="navbar-brand" href="#">
+            <img style="width: 40px;" src="http://getdrawings.com/free-icon/the-weather-channel-app-icons-54.png" alt="">
+          </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a id="hypl" class="nav-link active" aria-current="page" href="#" style="font-weight: 500;">Dash Board</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Guide Lines
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Kolkata</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Delhi</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Lucknow</a></li>
-                </ul>
+                <a id="hypl-1" class="nav-link" href="#" style="font-weight: 500;">Details</a>
               </li>
             </ul>
-            <form class="d-flex" role="search">
+            <form id="gf" class="d-flex" role="search">
               <input id="city" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit" id="submit">Search</button>
+              <button class="btn btn-outline-success gff" type="submit" id="submit">Search</button>
             </form>
           </div>
         </div>
       </nav>
       <div class="container">
-        <h2 class="my-2 text-center">Showing Weather Details for <span id="cityName"></span></h2>
+        <h2 id="big-font" class="my-2 text-center">Showing Weather Details for <span id="cityName"></span></h2>
         <main>
           <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
             <div class="col">
               <div class="card mb-4 rounded-3 shadow-sm">
-                <div class="card-header text-bg-primary py-2">
-                  <h4 class="my-0 fw-normal">Temperatures</h4>
+                <div id="card-head" class="card-header py-2">
+                  <h4 class="my-0 fw-normal all-h4">Temperatures</h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body" id="cbb">
                   <h1 class="card-title pricing-card-title"><span id="temp2"></span><small class="text-body-secondary fw-light"><span>&#8451;</span></small></h1>
                   <ul class="list-unstyled mt-3 mb-4">
                     <li>Temperature is <span id="temp"></span></li>
                     <li>Max Temperature is <span id="max_temp"></span></li>
                     <li>Min Temperature is <span id="min_temp"></span></li>
                   </ul>
-                  <button type="button" class="w-100 btn btn-lg text-bg-primary btn-outline-primary">Block-1</button>
+                  <img class="blk-2" src="https://st4.depositphotos.com/9782616/27257/v/1600/depositphotos_272576788-stock-illustration-hot-cold-weather-thermometer-icon.jpg" alt="">
+                  <!-- <button type="button" class="w-100 btn btn-lg text-bg-primary btn-outline-primary blk-1">Block-1</button> -->
                 </div>
               </div>
             </div>
             <div class="col">
               <div class="card mb-4 rounded-3 shadow-sm">
-                <div class="card-header text-bg-primary py-2">
+                <div id="card-head-2" class="card-header py-2">
                   <h4 class="my-0 fw-normal">Humidity</h4>
                 </div>
                 <div class="card-body">
                   <h1 class="card-title pricing-card-title"><span id="humidity2"></span><small class="text-body-secondary fw-light">%</small></h1>
-                  <ul class="list-unstyled mt-3 mb-4">
+                    <ul class="list-unstyled mt-3 mb-4">
                     <li>Wind Degree is <span id="wind_degrees"></span></li>
                     <li>Feels Like <span id="feels_like"></span></li>
                     <li>Humidity is <span id="humidity"></span></li>
                   </ul>
-                  <button type="button" class="w-100 btn btn-lg btn-primary">Block-2</button>
+                  <img class="blk-2" src="https://tse2.mm.bing.net/th?id=OIP.1ZYsx909iSElh13IuNwEPAHaHa&pid=Api&P=0&h=180" alt="">                  <!-- <button type="button" class="w-100 btn btn-lg btn-primary">Block-2</button> -->
                 </div>
               </div>
             </div>
             <div class="col">
-              <div class="card mb-4 rounded-3 shadow-sm border-primary">
-                <div class="card-header py-2 text-bg-primary border-primary">
+              <div class="card mb-4 rounded-3 shadow-sm border-primary" style="border: none;">
+                <div id="card-head-3" class="card-header py-2 border-primary">
                   <h4 class="my-0 fw-normal">Wind Speed</h4>
                 </div>
                 <div class="card-body">
@@ -131,14 +84,13 @@
                     <li>Sunrise timeing <span id="sunrise"></span></li>
                     <li>Sunset timeing is <span id="sunset"></span></li>
                   </ul>
-                  <button type="button" class="w-100 btn btn-lg btn-primary">Block-3</button>
+                  <img src="https://tse1.mm.bing.net/th?id=OIP.NdaVXE_ab9f8aGM4kAWcOgHaHa&pid=Api&P=0&h=180" alt="" class="blk-3">
+                  <!-- <button type="button" class="w-100 btn btn-lg btn-primary">Block-3</button> -->
                 </div>
               </div>
             </div>
           </div>
-      
-          <h2 class="display-0 text-center mb-2">Weather of other Common Places</h2>
-      
+          <h2 id="cp" class="display-0 text-center mb-2">Weather of other Common Places</h2>
           <div class="table-responsive">
             <table class="table text-center">
               <thead>
@@ -158,46 +110,64 @@
               </thead>
               <tbody>
                 <tr>
-                  <th scope="row" class="text-start">Mumbai</th>
-                  <td>0</td>
-                  <td>29</td>
-                  <td>29</td>
-                  <td>58</td>
-                  <td>27</td>
-                  <td>27</td>
-                  <td>4.16</td>
-                  <td>331</td>
-                  <td>1703468325</td>
-                  <td>1703507871</td>
+                  <th scope="row" class="text-start">
+                    <label for=""><span id="c1" ></span></label>
+                    <div class="cvv" style="display: flex;">
+                      <input type="text" name="cityName_0" id="cityName_0" placeholder="your city" style="border-radius: .5rem; padding: .5rem; text-align: center; border:1px dotted;">
+                      <button id="summit" style="margin-top: .4rem; margin-left: .4rem; padding: .5rem 1.2rem; border: none; border-radius: .5rem;">submit</button>
+                    </div>
+                  </th>
+                  <td><span id="cloud_pct">0</span></td>
+                  <td><span id="tempp">0</span></td>
+                  <td><span id="feels_likee">0</span></td>
+                  <td><span id="hum">0</span></td>
+                  <td><span id="mxt">0</span></td>
+                  <td><span id="min">0</span></td>
+                  <td><span id="ws">0</span></td>
+                  <td><span id="wd">0</span></td>
+                  <td><span id="sr">0</span></td>
+                  <td><span id="st">0</span></td>
                 </tr>
                 <tr>
-                  <th scope="row" class="text-start">Kolkata</th>
-                  <td>0</td>
-                  <td>21</td>
-                  <td>21</td>
-                  <td>73</td>
-                  <td>21</td>
-                  <td>21</td>
-                  <td>0</td>
-                  <td>0</td>
-                  <td>1703465021</td>
-                  <td>1703503722</td>
+                  <th scope="row" class="text-start" >
+                    <label for="" ><span id="c2"></span></label>
+                    <div class="cvv" style="display: flex;">
+                      <input type="text" name="cityName_1" id="cityName_1" placeholder="your city" style="border-radius: .5rem; padding: .5rem; text-align: center; border:1px dotted;">
+                      <button id="summit_1" style="margin-top: .4rem; margin-left: .4rem; padding: .5rem 1.2rem; border: none; border-radius: .5rem;">submit</button>
+                    </div>
+                  </th>
+                  <td><span id="cloud_pct_1">0</span></td>
+                  <td><span id="tempp_1">0</span></td>
+                  <td><span id="feels_likee_1">0</span></td>
+                  <td><span id="hum_1">0</span></td>
+                  <td><span id="mxt_1">0</span></td>
+                  <td><span id="min_1">0</span></td>
+                  <td><span id="ws_1">0</span></td>
+                  <td><span id="wd_1">0</span></td>
+                  <td><span id="sr_1">0</span></td>
+                  <td><span id="st_1">0</span></td>
                 </tr>
               </tbody>
       
               <tbody>
                 <tr>
-                  <th scope="row" class="text-start">Moscow</th>
-                  <td>100</td>
-                  <td>-1</td>
-                  <td>-6</td>
-                  <td>88</td>
-                  <td>-2</td>
-                  <td>-1</td>
-                  <td>3.88</td>
-                  <td>176</td>
-                  <td>1703483939</td>
-                  <td>1703509174</td>
+                  <th scope="row" class="text-start" >
+                    <label for=""><span id="c3"></span></label>
+                    <div class="cvv" style="display: flex;" >
+                      <input type="text" name="cityName_2" id="cityName_2" placeholder="your city" style="border-radius: .5rem; padding: .5rem; text-align: center; border:1px dotted;">
+                      <button id="summit_2" style="margin-top: .4rem; margin-left: .4rem; padding: .5rem 1.2rem; border: none; border-radius: .5rem;">submit</button>
+                    </div>
+                  </th>
+                  <td><span id="cloud_pct_2">0</span></td>
+                  <td><span id="tempp_2">0</span></td>
+                  <td><span id="feels_likee_2">0</span></td>
+                  <td><span id="hum_2">0</span></td>
+                  <td><span id="mxt_2">0</span></td>
+                  <td><span id="min_2">0</span></td>
+                  <td><span id="ws_2">0</span></td>
+                  <td><span id="wd_2">0</span></td>
+                  <td><span id="sr_2">0</span></td>
+                  <td><span id="st_2">0</span></td>
                 </tr>
               </tbody>
             </table>
