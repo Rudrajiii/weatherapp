@@ -2,7 +2,7 @@ const url = 'https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?city=Kolkat
 const options = {
 	method: 'GET',
 	headers: {
-		'X-RapidAPI-Key': '5e406478f2mshde639ab4d242573p1672bbjsn0be5adbaf718',
+		'X-RapidAPI-Key': 'ecf04b2b85mshcca5fd74191f226p180673jsna99888466523',
 		'X-RapidAPI-Host': 'weather-by-api-ninjas.p.rapidapi.com'
 	}
 };
