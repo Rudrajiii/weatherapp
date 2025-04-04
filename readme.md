@@ -1,4 +1,4 @@
-A Basic Responsive  Weather App
+A Basic Responsive  Weather App.
 
 
 
