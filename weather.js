@@ -1,10 +1,10 @@
 const url = 'https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?city=Kolkata';
 const options = {
 	method: 'GET',
-	headers: {
-		'X-RapidAPI-Key': 'ecf04b2b85mshcca5fd74191f226p180673jsna99888466523',
-		'X-RapidAPI-Host': 'weather-by-api-ninjas.p.rapidapi.com'
-	}
+	headers = {
+	"x-rapidapi-key": "5cfe066885msh5fcfb6634c92ae1p187cdbjsn4db97e8524e9",
+	"x-rapidapi-host": "weather-by-api-ninjas.p.rapidapi.com"
+}
 };
 const cityName_0 = document.getElementById('cityName_0');
 const summit = document.getElementById('summit');
