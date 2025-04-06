@@ -1,683 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weather Dashboard</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    
-    body {
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
-      color: #fff;
-      min-height: 100vh;
-      padding: 20px;
-    }
-    
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    .header {
-      text-align: center;
-      margin-bottom: 30px;
-      padding: 20px;
-    }
-    
-    .header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-    }
-    
-    .search-box {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 30px;
-    }
-    
-    .search-box input {
-      padding: 12px 20px;
-      width: 70%;
-      max-width: 400px;
-      border: none;
-      border-radius: 30px 0 0 30px;
-      font-size: 16px;
-      outline: none;
-    }
-    
-    .search-box button {
-      padding: 12px 20px;
-      background-color: #ff9800;
-      border: none;
-      border-radius: 0 30px 30px 0;
-      color: white;
-      cursor: pointer;
-      font-size: 16px;
-      transition: background-color 0.3s;
-    }
-    
-    .search-box button:hover {
-      background-color: #f57c00;
-    }
-    
-    .weather-display {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
-    
-    .main-weather {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 30px;
-      width: 100%;
-      max-width: 500px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    }
-    
-    .location {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-    
-    .location h2 {
-      font-size: 2rem;
-      font-weight: 600;
-    }
-    
-    .temp-info {
-      display: flex;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-    
-    .temp-info .icon-container {
-      width: 80px;
-      height: 80px;
-      margin-right: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-    }
-    
-    .temp {
-      font-size: 4rem;
-      font-weight: 700;
-    }
-    
-    .temp-unit {
-      font-size: 2rem;
-      margin-left: 5px;
-    }
-    
-    .temp-secondary {
-      font-size: 1.5rem;
-      opacity: 0.8;
-      margin-top: 5px;
-    }
-    
-    .weather-desc {
-      font-size: 1.5rem;
-      margin-bottom: 20px;
-      text-transform: capitalize;
-    }
-    
-    .details {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-    }
-    
-    .detail-item {
-      display: flex;
-      align-items: center;
-    }
-    
-    .detail-item i {
-      margin-right: 10px;
-      font-size: 1.5rem;
-      width: 30px;
-    }
-    
-    .additional-info {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      width: 100%;
-      max-width: 600px;
-    }
-    
-    .info-card {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 15px;
-      padding: 20px;
-      flex: 1 1 calc(50% - 20px);
-      min-width: 200px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
-    
-    .info-card h3 {
-      font-size: 1.2rem;
-      margin-bottom: 15px;
-      color: #ff9800;
-    }
-    
-    .info-value {
-      font-size: 1.8rem;
-      font-weight: 600;
-      margin-bottom: 5px;
-    }
-    
-    .info-desc {
-      font-size: 0.9rem;
-      opacity: 0.8;
-    }
-    
-    .error-message {
-      background-color: rgba(255, 59, 48, 0.2);
-      color: white;
-      padding: 15px;
-      border-radius: 10px;
-      text-align: center;
-      margin: 20px auto;
-      max-width: 500px;
-      display: none;
-    }
-    
-    .loader {
-      display: none;
-      border: 5px solid rgba(255, 255, 255, 0.3);
-      border-radius: 50%;
-      border-top: 5px solid #ff9800;
-      width: 50px;
-      height: 50px;
-      animation: spin 1s linear infinite;
-      margin: 30px auto;
-    }
-    
-    .temp-toggle {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-    
-    .temp-toggle button {
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      color: white;
-      padding: 8px 15px;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    
-    .temp-toggle button.active {
-      background: rgba(255, 255, 255, 0.2);
-    }
-    
-    .temp-toggle button:first-child {
-      border-radius: 20px 0 0 20px;
-    }
-    
-    .temp-toggle button:last-child {
-      border-radius: 0 20px 20px 0;
-    }
-    
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    
-    @media (max-width: 768px) {
-      .search-box input {
-        width: 60%;
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather-app</title>
+    <link href="https://fonts.googleapis.com/css2?family=Alkatra&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Domine&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya&family=Domine&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="https://github.com/manju1807/Weather-app/blob/main/cloudy.png?raw=true"/>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        height: 100%;
+        width: 100%;
+      }
+
+      body {
+        height: 100vh;
+        width: 100vw;
+        background: linear-gradient(135deg, #6499E9 0%, #9EDDFF 100%);
+        font-family: 'Poppins', sans-serif;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
       }
       
-      .details {
-        grid-template-columns: 1fr;
+      header {
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        color: #fff; 
+        padding: 15px;
+        text-align: center;
       }
-    }
-  </style>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+      
+      .heading {
+        margin: 0;
+        font-size: 32px;
+        letter-spacing: 2px;
+        font-weight: 600;
+      }
+      
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        width: 90%;
+        max-width: 450px;
+        min-height: 450px;
+        border-radius: 20px;
+        padding: 2rem;
+        justify-content: flex-start;
+        margin: 2rem auto;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      
+      .container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      }
+      
+      .container1 {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      
+      p {
+        margin: 0 0 10px 0;
+        font-size: 18px;
+        color: #fff;
+        font-weight: 500;
+      }
+      
+      .search-box {
+        display: flex;
+        width: 100%;
+        gap: 10px;
+      }
+      
+      input[type="text"] {
+        flex: 1;
+        padding: 12px 15px;
+        font-size: 16px;
+        border: none;
+        border-radius: 50px;
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s;
+      }
+      
+      input[type="text"]:focus {
+        outline: none;
+        background: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+      
+      button {
+        padding: 12px 20px;
+        font-size: 16px;
+        background: #3498db;
+        color: #fff;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      button:hover {
+        background: #2980b9;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+      
+      .container #result {
+        width: 100%;
+        margin-top: 1.5rem;
+        color: #fff;
+        font-size: 17px;
+        line-height: 1.6;
+        padding: 1rem;
+        border-radius: 15px;
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(5px);
+        transition: all 0.3s;
+      }
+      
+      #result h2 {
+        margin-bottom: 15px;
+        text-align: center;
+        font-size: 24px;
+        letter-spacing: 1px;
+      }
+      
+      #result .weather-info {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      #result .weather-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      
+      #result .weather-icon {
+        width: 30px;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.9);
+      }
+      
+      .footer {
+        margin-top: auto;
+        padding: 15px;
+        text-align: center;
+        color: white;
+        font-size: 16px;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(10px);
+      }
+
+      @media only screen and (max-width: 767px) {
+        .heading {
+          font-size: 24px;
+        }
+        .container {
+          padding: 1.5rem;
+          min-height: 400px;
+        }
+        .search-box {
+          flex-direction: column;
+        }
+        button {
+          width: 100%;
+        }
+        #result h2 {
+          font-size: 20px;
+        }
+      }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h1>Weather Dashboard</h1>
-      <p>Get accurate weather information for any city</p>
+    <header>
+        <h2 class="heading">Weather Dashboard</h2>
+    </header>
+    <div class="container">
+        <div class="container1">
+            <p>Enter the city name:</p>
+            <div class="search-box">
+                <input type="text" id="city" placeholder="Search for a city...">
+                <button id="btn"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+        <div id="result"></div>
     </div>
-    
-    <div class="search-box">
-      <input type="text" id="cityInput" placeholder="Enter city name">
-      <button id="searchBtn"><i class="fas fa-search"></i></button>
-    </div>
-    
-    <div class="temp-toggle">
-      <button id="fahrenheitBtn" class="active">°F</button>
-      <button id="celsiusBtn">°C</button>
-    </div>
-    
-    <div class="error-message" id="errorMsg"></div>
-    <div class="loader" id="loader"></div>
-    
-    <div class="weather-display" id="weatherDisplay" style="display: none;">
-      <div class="main-weather">
-        <div class="location">
-          <h2 id="cityName">Landon</h2>
-          <p id="currentDate">Friday, April 5</p>
-        </div>
-        
-        <div class="temp-info">
-          <div class="icon-container" id="weatherIconContainer">
-            <i class="fas fa-cloud-sun"></i>
-          </div>
-          <div>
-            <div>
-              <span class="temp" id="temperatureF">80</span>
-              <span class="temp-unit">°F</span>
-            </div>
-            <div class="temp-secondary">
-              <span id="temperatureC">27</span>°C
-            </div>
-          </div>
-        </div>
-        
-        <div class="weather-desc" id="weatherDesc">Haze</div>
-        
-        <div class="details">
-          <div class="detail-item">
-            <i class="fas fa-temperature-high"></i>
-            <div>
-              <p>Feels like</p>
-              <p id="feelsLikeF">84°F</p>
-              <p id="feelsLikeC">29°C</p>
-            </div>
-          </div>
-          <div class="detail-item">
-            <i class="fas fa-wind"></i>
-            <div>
-              <p>Wind</p>
-              <p id="wind">14.97 mph</p>
-            </div>
-          </div>
-          <div class="detail-item">
-            <i class="fas fa-tint"></i>
-            <div>
-              <p>Humidity</p>
-              <p id="humidity">74%</p>
-            </div>
-          </div>
-          <div class="detail-item">
-            <i class="fas fa-eye"></i>
-            <div>
-              <p>Visibility</p>
-              <p id="visibility">6 miles</p>
-            </div>
-          </div>
-        </div>
-      </div>
+    <footer class="footer">
+        <span>© 2025 Rudra / Rudranil / Aniket | Weather App</span>
+    </footer>
+    <script>
+      const btn = document.getElementById('btn');
+      const cityInput = document.getElementById('city');
       
-      <div class="additional-info">
-        <div class="info-card">
-          <h3>Pressure</h3>
-          <div class="info-value" id="pressure">1016 hPa</div>
-          <div class="info-desc">Standard atmospheric pressure is 1013 hPa</div>
-        </div>
-        
-        <div class="info-card">
-          <h3>Sunrise & Sunset</h3>
-          <div class="info-value" id="sunrise">6:13 AM</div>
-          <div class="info-value" id="sunset">6:57 PM</div>
-        </div>
-        
-        <div class="info-card">
-          <h3>Temperature Range</h3>
-          <div class="info-value" id="tempRangeF">
-            <span id="tempMinF">80°F</span> - <span id="tempMaxF">81°F</span>
-          </div>
-          <div class="info-value" id="tempRangeC">
-            <span id="tempMinC">27°C</span> - <span id="tempMaxC">27°C</span>
-          </div>
-          <div class="info-desc">Min and max temperature today</div>
-        </div>
-        
-        <div class="info-card">
-          <h3>Cloudiness</h3>
-          <div class="info-value" id="clouds">100%</div>
-          <div class="info-desc">Percentage of sky covered by clouds</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // DOM elements
-      const cityInput = document.getElementById('cityInput');
-      const searchBtn = document.getElementById('searchBtn');
-      const errorMsg = document.getElementById('errorMsg');
-      const loader = document.getElementById('loader');
-      const weatherDisplay = document.getElementById('weatherDisplay');
-      const fahrenheitBtn = document.getElementById('fahrenheitBtn');
-      const celsiusBtn = document.getElementById('celsiusBtn');
-      
-      // Weather display elements
-      const cityName = document.getElementById('cityName');
-      const currentDate = document.getElementById('currentDate');
-      const weatherIconContainer = document.getElementById('weatherIconContainer');
-      const temperatureF = document.getElementById('temperatureF');
-      const temperatureC = document.getElementById('temperatureC');
-      const weatherDesc = document.getElementById('weatherDesc');
-      const feelsLikeF = document.getElementById('feelsLikeF');
-      const feelsLikeC = document.getElementById('feelsLikeC');
-      const wind = document.getElementById('wind');
-      const humidity = document.getElementById('humidity');
-      const visibility = document.getElementById('visibility');
-      const pressure = document.getElementById('pressure');
-      const sunrise = document.getElementById('sunrise');
-      const sunset = document.getElementById('sunset');
-      const tempMinF = document.getElementById('tempMinF');
-      const tempMaxF = document.getElementById('tempMaxF');
-      const tempMinC = document.getElementById('tempMinC');
-      const tempMaxC = document.getElementById('tempMaxC');
-      const clouds = document.getElementById('clouds');
-      
-      let currentUnit = 'F';
-      
-      // Convert F to C
-      function fahrenheitToCelsius(fahrenheit) {
-        return Math.round((fahrenheit - 32) * 5 / 9);
-      }
-      
-      // Format date
-      function formatDate(timestamp) {
-        const date = new Date(timestamp * 1000);
-        const options = { weekday: 'long', month: 'long', day: 'numeric' };
-        return date.toLocaleDateString('en-US', options);
-      }
-      
-      // Format time
-      function formatTime(timestamp) {
-        const date = new Date(timestamp * 1000);
-        return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-      }
-      
-      // Convert meters to miles
-      function metersToMiles(meters) {
-        return Math.round(meters * 0.000621371);
-      }
-      
-      // Get weather icon class based on weather code
-      function getWeatherIconClass(weatherCode, isDay = true) {
-        // Map of weather codes to Font Awesome icons
-        const iconMap = {
-          200: 'fa-bolt', // thunderstorm with light rain
-          201: 'fa-bolt', // thunderstorm with rain
-          202: 'fa-bolt', // thunderstorm with heavy rain
-          210: 'fa-bolt', // light thunderstorm
-          211: 'fa-bolt', // thunderstorm
-          212: 'fa-bolt', // heavy thunderstorm
-          221: 'fa-bolt', // ragged thunderstorm
-          230: 'fa-bolt', // thunderstorm with light drizzle
-          231: 'fa-bolt', // thunderstorm with drizzle
-          232: 'fa-bolt', // thunderstorm with heavy drizzle
-          
-          300: 'fa-cloud-rain', // light intensity drizzle
-          301: 'fa-cloud-rain', // drizzle
-          302: 'fa-cloud-rain', // heavy intensity drizzle
-          310: 'fa-cloud-rain', // light intensity drizzle rain
-          311: 'fa-cloud-rain', // drizzle rain
-          312: 'fa-cloud-rain', // heavy intensity drizzle rain
-          313: 'fa-cloud-rain', // shower rain and drizzle
-          314: 'fa-cloud-rain', // heavy shower rain and drizzle
-          321: 'fa-cloud-rain', // shower drizzle
-          
-          500: 'fa-cloud-showers-heavy', // light rain
-          501: 'fa-cloud-showers-heavy', // moderate rain
-          502: 'fa-cloud-showers-heavy', // heavy intensity rain
-          503: 'fa-cloud-showers-heavy', // very heavy rain
-          504: 'fa-cloud-showers-heavy', // extreme rain
-          511: 'fa-snowflake', // freezing rain
-          520: 'fa-cloud-showers-heavy', // light intensity shower rain
-          521: 'fa-cloud-showers-heavy', // shower rain
-          522: 'fa-cloud-showers-heavy', // heavy intensity shower rain
-          531: 'fa-cloud-showers-heavy', // ragged shower rain
-          
-          600: 'fa-snowflake', // light snow
-          601: 'fa-snowflake', // snow
-          602: 'fa-snowflake', // heavy snow
-          611: 'fa-snowflake', // sleet
-          612: 'fa-snowflake', // light shower sleet
-          613: 'fa-snowflake', // shower sleet
-          615: 'fa-snowflake', // light rain and snow
-          616: 'fa-snowflake', // rain and snow
-          620: 'fa-snowflake', // light shower snow
-          621: 'fa-snowflake', // shower snow
-          622: 'fa-snowflake', // heavy shower snow
-          
-          701: 'fa-smog', // mist
-          711: 'fa-smog', // smoke
-          721: 'fa-smog', // haze
-          731: 'fa-smog', // sand/dust whirls
-          741: 'fa-smog', // fog
-          751: 'fa-smog', // sand
-          761: 'fa-smog', // dust
-          762: 'fa-smog', // volcanic ash
-          771: 'fa-wind', // squalls
-          781: 'fa-tornado', // tornado
-          
-          800: isDay ? 'fa-sun' : 'fa-moon', // clear sky
-          
-          801: isDay ? 'fa-cloud-sun' : 'fa-cloud-moon', // few clouds
-          802: isDay ? 'fa-cloud-sun' : 'fa-cloud-moon', // scattered clouds
-          803: 'fa-cloud', // broken clouds
-          804: 'fa-cloud', // overcast clouds
-        };
-        
-        return iconMap[weatherCode] || 'fa-cloud';
-      }
-      
-      // Update weather display with data
-      function updateWeatherDisplay(data) {
-        cityName.textContent = `${data.name}, ${data.sys.country}`;
-        currentDate.textContent = formatDate(data.dt);
-        
-        const tempF = Math.round(data.main.temp);
-        const tempC = fahrenheitToCelsius(data.main.temp);
-        
-        temperatureF.textContent = tempF;
-        temperatureC.textContent = tempC;
-        
-        const feelsLikeTempF = Math.round(data.main.feels_like);
-        const feelsLikeTempC = fahrenheitToCelsius(data.main.feels_like);
-        
-        feelsLikeF.textContent = `${feelsLikeTempF}°F`;
-        feelsLikeC.textContent = `${feelsLikeTempC}°C`;
-        
-        weatherDesc.textContent = data.weather[0].description;
-        
-        // Use Font Awesome icons instead of OpenWeather icons
-        const isDay = data.sys.sunrise < data.dt && data.dt < data.sys.sunset;
-        const iconClass = getWeatherIconClass(data.weather[0].id, isDay);
-        weatherIconContainer.innerHTML = `<i class="fas ${iconClass}"></i>`;
-        
-        wind.textContent = `${data.wind.speed} mph`;
-        humidity.textContent = `${data.main.humidity}%`;
-        visibility.textContent = `${metersToMiles(data.visibility)} miles`;
-        
-        pressure.textContent = `${data.main.pressure} hPa`;
-        
-        sunrise.textContent = formatTime(data.sys.sunrise);
-        sunset.textContent = formatTime(data.sys.sunset);
-        
-        const minTempF = Math.round(data.main.temp_min);
-        const maxTempF = Math.round(data.main.temp_max);
-        const minTempC = fahrenheitToCelsius(data.main.temp_min);
-        const maxTempC = fahrenheitToCelsius(data.main.temp_max);
-        
-        tempMinF.textContent = `${minTempF}°F`;
-        tempMaxF.textContent = `${maxTempF}°F`;
-        tempMinC.textContent = `${minTempC}°C`;
-        tempMaxC.textContent = `${maxTempC}°C`;
-        
-        clouds.textContent = `${data.clouds.all}%`;
-        
-        // Set temperature display based on selected unit
-        setTemperatureUnit(currentUnit);
-        
-        // Show weather display
-        loader.style.display = 'none';
-        weatherDisplay.style.display = 'flex';
-      }
-      
-      // Set temperature unit display (F or C)
-      function setTemperatureUnit(unit) {
-        currentUnit = unit;
-        
-        if (unit === 'F') {
-          document.getElementById('tempRangeF').style.display = 'block';
-          document.getElementById('tempRangeC').style.display = 'none';
-          document.getElementById('feelsLikeF').style.display = 'block';
-          document.getElementById('feelsLikeC').style.display = 'none';
-          fahrenheitBtn.classList.add('active');
-          celsiusBtn.classList.remove('active');
-        } else {
-          document.getElementById('tempRangeF').style.display = 'none';
-          document.getElementById('tempRangeC').style.display = 'block';
-          document.getElementById('feelsLikeF').style.display = 'none';
-          document.getElementById('feelsLikeC').style.display = 'block';
-          fahrenheitBtn.classList.remove('active');
-          celsiusBtn.classList.add('active');
-        }
-      }
-      
-      // Function to fetch weather data
-      function fetchWeatherData(city) {
-        // Show loader, hide previous results and error
-        loader.style.display = 'block';
-        errorMsg.style.display = 'none';
-        weatherDisplay.style.display = 'none';
-        
-        // In a real app, we would fetch from the API
-        // Since we're using mock data, we'll simulate an API call
-        
-        // Normally, this would be:
-        // const url = `https://open-weather13.p.rapidapi.com/city/${city}/EN`;
-        // const options = {
-        //   method: 'GET',
-        //   headers: {
-        //     'x-rapidapi-key': '5e406478f2mshde639ab4d242573p1672bbjsn0be5adbaf718',
-        //     'x-rapidapi-host': 'open-weather13.p.rapidapi.com'
-        //   }
-        // };
-        
-        // Simulate API call with setTimeout
-        setTimeout(() => {
-          try {
-            // Using the mock data provided
-            const mockData = {
-              "coord": {"lon": -89.1028, "lat": 30.438},
-              "weather": [{"id": 721, "main": "Haze", "description": "haze", "icon": "50d"}],
-              "base": "stations",
-              "main": {
-                "temp": 80.69,
-                "feels_like": 84.72,
-                "temp_min": 79.95,
-                "temp_max": 81.03,
-                "pressure": 1016,
-                "humidity": 74,
-                "sea_level": 1016,
-                "grnd_level": 1015
-              },
-              "visibility": 9656,
-              "wind": {"speed": 14.97, "deg": 160},
-              "clouds": {"all": 100},
-              "dt": 1743877055,
-              "sys": {
-                "type": 2,
-                "id": 2003455,
-                "country": "US",
-                "sunrise": 1743853212,
-                "sunset": 1743898645
-              },
-              "timezone": -18000,
-              "id": 4429197,
-              "name": "Landon",
-              "cod": 200
-            };
-            
-            // If user searches for a specific city, modify the mock data slightly
-            if (city.toLowerCase() !== 'landon') {
-              mockData.name = city.charAt(0).toUpperCase() + city.slice(1);
-              // Slightly vary the temperature and other values to simulate different cities
-              mockData.main.temp = Math.round(70 + Math.random() * 20);
-              mockData.main.feels_like = mockData.main.temp + Math.round(Math.random() * 8);
-              mockData.main.temp_min = mockData.main.temp - Math.round(Math.random() * 2);
-              mockData.main.temp_max = mockData.main.temp + Math.round(Math.random() * 2);
-              mockData.main.humidity = Math.round(60 + Math.random() * 30);
-              mockData.wind.speed = Math.round(5 + Math.random() * 15);
-              
-              // Vary weather condition
-              const weatherTypes = [
-                {"id": 800, "main": "Clear", "description": "clear sky", "icon": "01d"},
-                {"id": 801, "main": "Clouds", "description": "few clouds", "icon": "02d"},
-                {"id": 802, "main": "Clouds", "description": "scattered clouds", "icon": "03d"},
-                {"id": 500, "main": "Rain", "description": "light rain", "icon": "10d"},
-                {"id": 721, "main": "Haze", "description": "haze", "icon": "50d"}
-              ];
-              mockData.weather[0] = weatherTypes[Math.floor(Math.random() * weatherTypes.length)];
-            }
-            
-            updateWeatherDisplay(mockData);
-          } catch (error) {
-            console.error('Error:', error);
-            errorMsg.textContent = 'Unable to fetch weather data. Please try again.';
-            errorMsg.style.display = 'block';
-            loader.style.display = 'none';
-          }
-        }, 1000); // Simulate 1-second API delay
-      }
-      
-      // Event listeners
-      searchBtn.addEventListener('click', function() {
-        const city = cityInput.value.trim();
-        if (city) {
-          fetchWeatherData(city);
-        } else {
-          errorMsg.textContent = 'Please enter a city name';
-          errorMsg.style.display = 'block';
-        }
-      });
-      
+      // Allow search on Enter key press
       cityInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
-          searchBtn.click();
+          getWeather();
         }
       });
       
-      // Temperature unit toggle
-      fahrenheitBtn.addEventListener('click', function() {
-        setTemperatureUnit('F');
-      });
+      btn.addEventListener('click', getWeather);
       
-      celsiusBtn.addEventListener('click', function() {
-        setTemperatureUnit('C');
-      });
+      function getWeather() {
+        const city = cityInput.value.trim();
+        if (!city) return;
+        
+        const result = document.getElementById('result');
+        result.innerHTML = '<div style="text-align: center; padding: 20px;"><i class="fas fa-spinner fa-spin" style="font-size: 30px;"></i><p style="margin-top: 10px;">Fetching weather data...</p></div>';
+        
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=171e009cae7e126fcbcec49c3a5cee6a`;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                displayWeather(data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                result.innerHTML = '<div style="text-align: center; padding: 20px; color: #ff6b6b;"><i class="fas fa-exclamation-circle" style="font-size: 30px;"></i><p style="margin-top: 10px;">Something went wrong. Please try again.</p></div>';
+            });
+      }
       
-      // Load default city on page load
-      fetchWeatherData('landon');
-    });
-  </script>
+      function displayWeather(data) {
+          const result = document.getElementById('result');
+          if (data.cod === '404') {
+              result.innerHTML = '<div style="text-align: center; padding: 20px; color: #ff6b6b;"><i class="fas fa-map-marker-alt" style="font-size: 30px;"></i><p style="margin-top: 10px;">City not found. Please check the spelling and try again.</p></div>';
+          } else {
+              // Get weather icon
+              const iconCode = data.weather[0].icon;
+              const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+              
+              result.innerHTML = `
+                  <h2 style="font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: center;">
+                      <img src="${iconUrl}" alt="${data.weather[0].description}" style="width: 50px; height: 50px;">
+                      ${data.name}, ${data.sys.country}
+                  </h2>
+                  <div class="weather-info">
+                      <div class="weather-row">
+                          <div class="weather-icon"><i class="fas fa-temperature-high"></i></div>
+                          <div>Temperature: ${Math.round(data.main.temp -273.15)}°C</div>
+                      </div>
+                      <div class="weather-row">
+                          <div class="weather-icon"><i class="fas fa-thermometer"></i></div>
+                          <div>Feels like: ${Math.round(data.main.feels_like -273.15)}°C</div>
+                      </div>
+                      <div class="weather-row">
+                          <div class="weather-icon"><i class="fas fa-cloud"></i></div>
+                          <div>Weather: ${data.weather[0].main} (${data.weather[0].description})</div>
+                      </div>
+                      <div class="weather-row">
+                          <div class="weather-icon"><i class="fas fa-tint"></i></div>
+                          <div>Humidity: ${data.main.humidity}%</div>
+                      </div>
+                      <div class="weather-row">
+                          <div class="weather-icon"><i class="fas fa-compress-alt"></i></div>
+                          <div>Pressure: ${data.main.pressure} hPa</div>
+                      </div>
+                      <div class="weather-row">
+                          <div class="weather-icon"><i class="fas fa-wind"></i></div>
+                          <div>Wind: ${data.wind.speed} m/s, ${getWindDirection(data.wind.deg)}</div>
+                      </div>
+                  </div>`;
+          }
+      }
+      
+      function getWindDirection(degrees) {
+          const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+          return directions[Math.round(degrees / 45) % 8];
+      }
+    </script>
 </body>
 </html>
